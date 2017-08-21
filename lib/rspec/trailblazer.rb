@@ -1,7 +1,9 @@
-require "rspec/trailblazer/version"
+require_relative 'trailblazer/matchers'
 
 module RSpec
+
+  # RSpec for Trailblazer.
   module Trailblazer
-    autoload :Matchers, "rspec/trailblazer/matchers"
   end
+
 end

@@ -1,9 +1,19 @@
-/.bundle/
-/.yardoc
-/Gemfile.lock
-/_yardoc/
-/coverage/
-/doc/
 /pkg/
-/spec/reports/
 /tmp/
+
+# appraisals
+/gemfiles/*.lock
+/gemfiles/.bundle
+
+# rspec
+/spec/examples.txt
+
+# rubymine
+/.idea/
+
+# simplecov
+/coverage/
+
+# yard
+doc
+.yardoc

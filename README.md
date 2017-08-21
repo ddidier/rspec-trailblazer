@@ -1,6 +1,21 @@
 # Rspec::Trailblazer
 
+<!--
+[![Build Status](https://secure.travis-ci.org/trailblazer/rspec-trailblazer.png)](http://travis-ci.org/trailblazer/rspec-trailblazer)
+[![Dependency Status](https://gemnasium.com/trailblazer/rspec-trailblazer.png)](https://gemnasium.com/trailblazer/rspec-trailblazer)
+[![Code Climate](https://codeclimate.com/github/trailblazer/rspec-trailblazer/badges/gpa.svg)](https://codeclimate.com/github/trailblazer/rspec-trailblazer)
+[![Test Coverage](https://codeclimate.com/github/trailblazer/rspec-trailblazer/badges/coverage.svg)](https://codeclimate.com/github/trailblazer/rspec-trailblazer/coverage)
+[![Yard Documentation](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/trailblazer/rspec-trailblazer)
+[![Documentation Coverage](https://inch-ci.org/github/trailblazer/rspec-trailblazer.svg)](https://inch-ci.org/github/trailblazer/rspec-trailblazer)
+-->
+
 RSpec Matchers for Trailblazer
+
+<!--
+The API documentation can be find at [RubyDoc](http://www.rubydoc.info/github/trailblazer/rspec-trailblazer).
+-->
+
+
 
 ## Installation
 
@@ -10,70 +25,114 @@ Add this line to your application's Gemfile:
 gem 'rspec-trailblazer'
 ```
 
-And then execute:
+And then execute `bundle`
 
-    $ bundle
+Or install it yourself with `gem install rspec-trailblazer`
 
-## Configuration
 
-```ruby
-# spec_helper.rb
-RSpec.configure do |config|
-  # Include RSpec::Trailblazer::Matchers for operation tests
-  config.include RSpec::Trailblazer::Matchers, type: :operation
-end
-```
 
-## Examples
+## Usage
 
-```ruby
-class Post < ActiveRecord::Base
-  class Index < Trailblazer::Operation
-    include Collection
-    include CRUD
-    model Post
+### Prerequisites
 
-    def model!(params)
-      Post.where(forum_id: params[:forum_id])
-    end
-  end
+This gem requires:
 
-  class Show < Trailblazer::Operation
-    include CRUD
-    model Post
+- `trailblazer >= 2.0`
+- `rspec >= 3.0`
 
-    def model!(params)
-      Post.find_by!(forum_id: params[:forum_id], id: params[:id])
-    end
-  end
-end
-```
+And is tested with:
 
-```ruby
-RSpec.describe Post::Index, type: :operation do
-  it { is_expected.to be_a_trailblazer_operation }
-  it { is_expected.to use_model Post }
-  it do
-    is_expected.to present_model.with_params(forum_id: 1).from_model(Post).wich_receive(:where).with(forum_id: 1)
-  end
-end
+- `Ruby 2.4`
+- `Ruby 2.3`
+- `Ruby 2.2`
 
-RSpec.describe Post::Show, type: :operation do
-  it { is_expected.to be_a_trailblazer_operation }
-  it { is_expected.to use_model Post }
-  it do
-    is_expected.to present_model.with_params(forum_id: 1, id: 11).from_model(Post).wich_receive(:find_by!).with(forum_id: 1, id: 11)
-  end
-end
-```
+
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Prerequisites
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+In order to extensively test this library with all the supported versions of Ruby and RSpec, you will need to manage:
+
+- several Ruby environments using [RVM](https://rvm.io/)
+- several gems sets using [Appraisal](https://github.com/thoughtbot/appraisal)
+- several test execution environments (Ruby and gems) using [WWTD](https://github.com/grosser/wwtd)
+
+### Setup
+
+After installing RVM, check out the repository and run `bin/setup` to setup all the environments. This script will:
+
+- create the latest Ruby environment with RVM and an associated gems set using the `.ruby-version`
+and `.ruby-gemset` files:
+
+```bash
+rvm use
+gem install bundler --no-rdoc --no-ri
+bundle install
+```
+
+- install all the required Ruby versions listed in `.travis.yml`. For example:
+
+```bash
+export LOCAL_RUBY_VERSION=2.2.7 \
+ && rvm install ruby-$LOCAL_RUBY_VERSION \
+ && rvm use ruby-$LOCAL_RUBY_VERSION \
+ && gem install bundler --no-rdoc --no-ri
+export LOCAL_RUBY_VERSION=2.3.4 \
+ && rvm install ruby-$LOCAL_RUBY_VERSION \
+ && rvm use ruby-$LOCAL_RUBY_VERSION \
+ && gem install bundler --no-rdoc --no-ri
+export LOCAL_RUBY_VERSION=2.4.1 \
+ && rvm install ruby-$LOCAL_RUBY_VERSION \
+ && rvm use ruby-$LOCAL_RUBY_VERSION \
+ && gem install bundler --no-rdoc --no-ri
+```
+
+- create a `Gemfile.lock` for each set of the dependencies:
+
+```bash
+appraisal install
+```
+
+- install all the dependencies in their associated environment:
+
+```bash
+wwtd --only-bundle
+```
+
+At last, to test this library in all the supported environments, just run:
+
+```bash
+wwtd --parallel
+```
+
+### Release
+
+As a reminder...
+
+- update the changelog
+- update the library version
+- update all dependencies in all the environments:
+
+```bash
+bundle update
+appraisal update
+wwtd --only-bundle
+```
+
+- run the tests in all the environments with `wwtd --parallel`
+- release with `bundle exec rake release`
+
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/trailblazer/rspec-trailblazer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/trailblazer/rspec-trailblazer. This project
+is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the
+[Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

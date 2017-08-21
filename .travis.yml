@@ -1,4 +1,21 @@
+sudo: false
 language: ruby
 rvm:
-  - 2.2.3
-before_install: gem install bundler -v 1.10.6
+  - 2.4.1
+  - 2.3.4
+  - 2.2.7
+before_install:
+  - gem install bundler -v 1.15.3
+gemfile:
+  - gemfiles/rspec_3.0.gemfile
+  - gemfiles/rspec_3.1.gemfile
+  - gemfiles/rspec_3.2.gemfile
+  - gemfiles/rspec_3.3.gemfile
+  - gemfiles/rspec_3.4.gemfile
+  - gemfiles/rspec_3.5.gemfile
+  - gemfiles/rspec_3.6.gemfile
+#addons:
+#  code_climate:
+#    repo_token: XXXXXXXXXXXXXXXXXXXXXXXXX
+#after_success:
+#  - bundle exec codeclimate-test-reporter

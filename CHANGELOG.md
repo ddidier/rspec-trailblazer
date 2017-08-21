@@ -4,3 +4,4 @@
 
 - Complete rewrite of the library
 - Add 'be_failed' and 'be_successful' operation matchers
+- Add 'present_model' operation matcher

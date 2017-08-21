@@ -1,6 +1,7 @@
 require 'rspec'
 require_relative 'operations/be_failed'
 require_relative 'operations/be_successful'
+require_relative 'operations/present_model'
 
 module RSpec
   module Trailblazer

@@ -46,6 +46,11 @@ And is tested with:
 - `Ruby 2.3`
 - `Ruby 2.2`
 
+### Operation matchers
+
+- `be_failed`: ensure that a Trailblazer operation has failed <!--([documentation](http://www.rubydoc.info/gems/rspec-trailblazer/RSpec%2FTrailblazer%2FMatchers%2FOperations:be_failed))-->;
+- `be_successful`: ensure that a Trailblazer operation was successful <!--([documentation](http://www.rubydoc.info/gems/rspec-trailblazer/RSpec%2FTrailblazer%2FMatchers%2FOperations:be_successful))-->;
+
 
 
 ## Development

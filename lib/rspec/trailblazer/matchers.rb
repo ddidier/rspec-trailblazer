@@ -1,4 +1,4 @@
-require_relative 'matchers/old_matchers'
+require_relative 'matchers/operations'
 
 module RSpec
   module Trailblazer
